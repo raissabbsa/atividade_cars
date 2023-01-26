@@ -19,7 +19,11 @@ async function getCar(id: number) {
 async function getCarWithLicensePlate(licensePlate: string) {
   // const data = await db.query(`SELECT * FROM cars WHERE "licensePlate" = $1`, [licensePlate]);
   // return data.rows[0];
-  return [];
+  return prisma.cars.findUnique({
+    where: {
+      licensePlate
+    }
+  });
 
 }
 
@@ -31,10 +35,10 @@ async function createCar(model: string, licensePlate: string, year: number, colo
   // );
   return prisma.cars.create({
     data: {
-      "model": model,
-      "licensePlate": licensePlate,
-      "year": year.toString(),
-      "color": color
+      model: model,
+      licensePlate: licensePlate,
+      year: year.toString(),
+      color: color
     }
   });
 
